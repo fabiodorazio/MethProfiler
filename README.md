@@ -1,5 +1,7 @@
 ### Metprofiler
-Metprofiler is a python pipeline built to automate the analysis of DNA methylation from this [dataset](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE59685)
+Metprofiler is a python pipeline built to automate the analysis of DNA methylation from this [dataset](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE59685).
+- Study setup: patient's DNA methylation profiles have been screening from different tissues. The progression of Alzheimers disease has been classified using the Braak scale.
+- Disease-control split: All braak stages >= 1 were arbitrary classified as diseased
 
 ```
 Disclaimer: 'This code was handwritten. LLMs were used for consultation on programming logic, documentation lookup, and API/function usage'
@@ -7,17 +9,24 @@ Disclaimer: 'This code was handwritten. LLMs were used for consultation on progr
 ```
 
 ## Structure
-```
+
 [main.py](./bin/main.py) <── [DMA.py](./bin/DMA.py)
 ^
-├── samplesheet.csv <── [samplesheet.workout.py](./bin/samplesheet_workout.py)
+├── samplesheet.csv <── [samplesheet_workout.py](./bin/samplesheet_workout.py)
 └── betas.csv
-```
+
 
 ## Overarching logic
-1) [samplesheet.workout.py](./bin/samplesheet_workout.py)
-- reads the xml file provided by the authors and 
-2) [DMA.py](./bin/DMA.py)
+1) [Prepare Samplesheet](./bin/samplesheet_workout.py)
+- reads the xml file provided by the authors
+- a regex within a for loop identifies tissue_source and sample_id attributes and combines them in a csv table
+
+2) [Differential Methylation Analysis](./bin/DMA.py)
 - Betas have a 3-rows header indicating the corresponding GSMs. For standardisation, the header is cut off and the beta values Samplesheet instead is used to subset the relevant barcodes.
 - Due to the size of the table, the pipeline has the option to downsample the input beta table to make it more manageble during development. Default = 'Off'
 - After loading the input files, the code asserts for missing Sample_Barcodes in the column names of the beta table
+
+3) [Plotting]
+
+
+## Analysis of Blood Samples
