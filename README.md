@@ -52,7 +52,11 @@ python3 __main.py__
 - Due to the size of the table, the pipeline has the option to downsample the input beta table to make it more manageble during development. Default = 'Off'
 - After loading the input files, the code asserts for missing Sample_Barcodes in the column names of the beta table
 
-3) [Plotting]
+3) [Plotting](./bin/graphics.py)
+- Samplesheet QC: distribution of probes based on covariates
+- Principal Component Analysis for beta values
+
+
 
 
 **Analysis of Blood Samples**

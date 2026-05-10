@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import pandas as pd
 
+import utils
 
 def clean_classify_samplesheet(samplesheet, control_threshold=1):
     '''
@@ -86,4 +87,6 @@ df = pd.DataFrame(rows)
 # apply filtering and binarization
 df_final = clean_classify_samplesheet(df, 3)
 print(df_final)
+
+# assets/ must exist
 df_final.to_csv("/Users/fdorazio/Desktop/Projects/Metprofiler/assets/samplesheet_processed.csv")
