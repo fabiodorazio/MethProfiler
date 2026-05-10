@@ -54,7 +54,7 @@ def load_meth(betas_path, samplesheet_path, sample_on='Off', test_mode='Off', sa
             low_memory=False
         )
     else:
-        raise ValueError('Error: est_mode must be one between `On` or `Off`')
+        raise ValueError('Error: test_mode must be one between `On` or `Off`')
     print(betas.head())
     print(betas.shape)
 
@@ -66,8 +66,15 @@ def load_meth(betas_path, samplesheet_path, sample_on='Off', test_mode='Off', sa
     ####
     # -> keep only matching samples
     # match new_gms with column names
+    gsm_new = pd.read_csv('/Users/fdorazio/Desktop/Projects/Metprofiler/assets/GSE59685_SampleBarcode_Re-analyzedGSMs_NewGSMs.txt', sep = '\t')
+    # merge with samplesheet
+    samplesheet = samplesheet.merge(
+        gsm_new[['NEW_GSMs', 'Sample_Barcode']],
+        left_on='sampleId',
+        right_on='NEW_GSMs',
+        how='left')
+    
     if samples_to_keep:
-        gsm_new = pd.read_csv('/Users/fdorazio/Desktop/Projects/Metprofiler/assets/GSE59685_SampleBarcode_Re-analyzedGSMs_NewGSMs.txt', sep = '\t')
 
         # Find matching barcodes
         gsm_ids = samplesheet.loc[samplesheet['tissue_source'].isin(samples_to_keep)]['sampleId']
@@ -86,13 +93,29 @@ def load_meth(betas_path, samplesheet_path, sample_on='Off', test_mode='Off', sa
 
     return(sub_betas, samplesheet)
 
-betas, samplesheet = load_meth('/Users/fdorazio/Desktop/Projects/Metprofiler/test/GSE59685_betas_sub.csv',
-                #'/Users/fdorazio/Desktop/Projects/Metprofiler/assets/samplesheet_processed.csv',
-                '/Users/fdorazio/Desktop/Projects/Metprofiler/test/samplesheet_processed_test.csv',
-                test_mode='On',
-                samples_to_keep=['whole blood'])
+#betas, samplesheet = load_meth('/Users/fdorazio/Desktop/Projects/Metprofiler/assets/GSE59685_betas.csv',
+#                '/Users/fdorazio/Desktop/Projects/Metprofiler/assets/samplesheet_processed.csv',
+#                test_mode='Off',
+#                samples_to_keep=['whole blood'])
+
+#samplesheet.to_csv('/Users/fdorazio/Desktop/Projects/Metprofiler/test/samplesheet_processed.csv')
+
+# to delete
+betas = pd.read_csv('/Users/fdorazio/Desktop/Projects/Metprofiler/test/GSE59685_betas_test_blood.csv', index_col=0)
+samplesheet = pd.read_csv('/Users/fdorazio/Desktop/Projects/Metprofiler/assets/samplesheet_processed.csv')
+gsm_new = pd.read_csv('/Users/fdorazio/Desktop/Projects/Metprofiler/assets/GSE59685_SampleBarcode_Re-analyzedGSMs_NewGSMs.txt', sep = '\t')
+ids = gsm_new[gsm_new['Sample_Barcode'].isin(betas.columns)]['NEW_GSMs']
+print(ids)
+samplesheet = samplesheet[samplesheet['sampleId'].isin(ids)]
+samplesheet = samplesheet.merge(
+        gsm_new[['NEW_GSMs', 'Sample_Barcode']],
+        left_on='sampleId',
+        right_on='NEW_GSMs',
+        how='left')
 print('#1')
 print(betas)
+
+print(samplesheet)
 def meth_qc(betas, samplesheet):
     print(samplesheet)
     ####
@@ -102,21 +125,27 @@ def meth_qc(betas, samplesheet):
     print("Removing poor quality samples:")
     print(bad_samples.tolist())
     betas = betas.drop(columns=bad_samples)
-    samplesheet = samplesheet.drop(index=bad_samples)
+    # remove from samplesheet
+    samplesheet = samplesheet[~samplesheet["Sample_Barcode"].isin(bad_samples)].copy()
     ####
 
     ####
     # -> remove probes with high missing values
     probe_missing = betas.isna().mean(axis=1)
+    removed_missing = (probe_missing > 0.05).sum()
     betas = betas.loc[probe_missing <= 0.05]
+    print(f"Removed {removed_missing} probes with high missingness")
     ####
 
     ####
     # -> remove low-variance probes which add little biological meaning
     probe_sd = betas.std(axis=1)
-    beta = betas.loc[probe_sd > 0.02]
+    removed_lowvar = (probe_sd <= 0.02).sum()
+    betas = betas.loc[probe_sd > 0.02]
+    print(f"Removed {removed_lowvar} low-variance probes")
+
     ####
-    return(beta)
+    return(betas)
 
 print('#2')
 betas = meth_qc(betas, samplesheet)
@@ -157,69 +186,96 @@ print('#3')
 norm_betas = meth_normalise(betas)
 print(norm_betas)
 
-def DMA(betas,
-        samplesheet,
-        group1,
-        group2):
-    """
-    Differential methylation analysis (probe-wise t-test)
-    """
+from scipy.stats import ttest_ind
+from statsmodels.stats.multitest import multipletests
+import pandas as pd
+import numpy as np
 
-    # ------------------------------------------------------------------
-    # Get samples for each group
-    # ------------------------------------------------------------------
-    g1_samples = samplesheet[
-        samplesheet["Condition"] == group1
-    ].index.intersection(betas.columns)
+def DMA(betas, samplesheet, group1, group2):
 
-    g2_samples = samplesheet[
-        samplesheet["Condition"] == group2
-    ].index.intersection(betas.columns)
+    # ------------------------------------------------------------
+    # Clean sample IDs
+    # ------------------------------------------------------------
+    samplesheet["Sample_Barcode"] = (
+        samplesheet["Sample_Barcode"]
+        .astype(str)
+        .str.strip()
+    )
+
+    betas.columns = betas.columns.astype(str).str.strip()
+
+    # ------------------------------------------------------------
+    # Sample selection
+    # ------------------------------------------------------------
+    g1_samples = pd.Index(
+        samplesheet.loc[
+            samplesheet["Condition"] == group1,
+            "Sample_Barcode"
+        ]
+    ).intersection(betas.columns)
+
+    g2_samples = pd.Index(
+        samplesheet.loc[
+            samplesheet["Condition"] == group2,
+            "Sample_Barcode"
+        ]
+    ).intersection(betas.columns)
 
     print(f"{group1}: {len(g1_samples)} samples")
     print(f"{group2}: {len(g2_samples)} samples")
 
-    results = []
+    # ------------------------------------------------------------
+    # Convert to matrices
+    # ------------------------------------------------------------
+    g1_matrix = betas[g1_samples].to_numpy(dtype=float)
+    g2_matrix = betas[g2_samples].to_numpy(dtype=float)
 
-    # ------------------------------------------------------------------
-    # Probe-wise testing
-    # ------------------------------------------------------------------
-    for probe in betas.index:
+    # ------------------------------------------------------------
+    # Means
+    # ------------------------------------------------------------
+    mean1 = np.nanmean(g1_matrix, axis=1)
+    mean2 = np.nanmean(g2_matrix, axis=1)
 
-        g1 = betas.loc[probe, g1_samples].dropna()
-        g2 = betas.loc[probe, g2_samples].dropna()
+    delta_beta = mean1 - mean2
 
-        if len(g1) < 2 or len(g2) < 2:
-            continue
+    # ------------------------------------------------------------
+    # Vectorized t-test
+    # ------------------------------------------------------------
+    stat, pval = ttest_ind(
+        g1_matrix,
+        g2_matrix,
+        axis=1,
+        equal_var=False,
+        nan_policy="omit"
+    )
 
-        stat, pval = stats.ttest_ind(
-            g1,
-            g2,
-            equal_var=False
-        )
+    # ------------------------------------------------------------
+    # Results dataframe
+    # ------------------------------------------------------------
+    results = pd.DataFrame({
+        "Probe": betas.index,
+        "mean_group1": mean1,
+        "mean_group2": mean2,
+        "delta_beta": delta_beta,
+        "t_stat": stat,
+        "p_value": pval
+    })
 
-        delta_beta = g1.mean() - g2.mean()
+    # ------------------------------------------------------------
+    # Remove invalid rows
+    # ------------------------------------------------------------
+    results = results.dropna(subset=["p_value"])
 
-        results.append({
-            "Probe": probe,
-            "mean_group1": g1.mean(),
-            "mean_group2": g2.mean(),
-            "delta_beta": delta_beta,
-            "t_stat": stat,
-            "p_value": pval
-        })
-
-    results = pd.DataFrame(results)
-
-    # ------------------------------------------------------------------
-    # Multiple testing correction
-    # ------------------------------------------------------------------
+    # ------------------------------------------------------------
+    # FDR correction
+    # ------------------------------------------------------------
     results["FDR"] = multipletests(
         results["p_value"],
         method="fdr_bh"
     )[1]
 
     results = results.sort_values("FDR")
+    
 
     return results
 

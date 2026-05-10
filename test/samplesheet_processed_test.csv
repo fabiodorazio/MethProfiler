@@ -1,0 +1,532 @@
+,sampleId,tissue_source,braak_stage,disease_status,Sex,age,Condition
+0,GSM1443249,entorhinal cortex,0.0,C,FEMALE,82,Control
+1,GSM1443250,whole blood,0.0,C,FEMALE,82,Control
+2,GSM1443251,frontal cortex,0.0,C,FEMALE,82,Control
+3,GSM1443252,superior temporal gyrus,0.0,C,FEMALE,82,Control
+4,GSM1443253,whole blood,2.0,Exclude,FEMALE,82,Disease
+5,GSM1443254,cerebellum,2.0,Exclude,FEMALE,82,Disease
+6,GSM1443255,superior temporal gyrus,2.0,Exclude,FEMALE,82,Disease
+7,GSM1443256,frontal cortex,2.0,Exclude,FEMALE,82,Disease
+8,GSM1443257,entorhinal cortex,2.0,Exclude,FEMALE,82,Disease
+9,GSM1443258,frontal cortex,,AD,MALE,89,Control
+10,GSM1443259,entorhinal cortex,,AD,MALE,89,Control
+11,GSM1443260,superior temporal gyrus,,AD,MALE,89,Control
+12,GSM1443261,cerebellum,,AD,MALE,89,Control
+13,GSM1443262,superior temporal gyrus,1.0,C,FEMALE,81,Disease
+14,GSM1443263,frontal cortex,1.0,C,FEMALE,81,Disease
+15,GSM1443264,entorhinal cortex,1.0,C,FEMALE,81,Disease
+16,GSM1443265,cerebellum,1.0,C,FEMALE,81,Disease
+17,GSM1443266,whole blood,2.0,C,FEMALE,92,Disease
+18,GSM1443267,superior temporal gyrus,2.0,C,FEMALE,92,Disease
+19,GSM1443268,entorhinal cortex,2.0,C,FEMALE,92,Disease
+20,GSM1443269,frontal cortex,2.0,C,FEMALE,92,Disease
+21,GSM1443270,frontal cortex,1.0,C,MALE,78,Disease
+22,GSM1443271,superior temporal gyrus,1.0,C,MALE,78,Disease
+23,GSM1443272,whole blood,1.0,C,MALE,78,Disease
+24,GSM1443273,entorhinal cortex,1.0,C,MALE,78,Disease
+25,GSM1443274,cerebellum,1.0,C,MALE,78,Disease
+26,GSM1443275,entorhinal cortex,3.0,Exclude,MALE,86,Disease
+27,GSM1443276,cerebellum,3.0,Exclude,MALE,86,Disease
+28,GSM1443277,superior temporal gyrus,3.0,Exclude,MALE,86,Disease
+29,GSM1443278,whole blood,3.0,Exclude,MALE,86,Disease
+30,GSM1443279,frontal cortex,3.0,Exclude,MALE,86,Disease
+31,GSM1443280,cerebellum,4.0,AD,FEMALE,96,Disease
+32,GSM1443281,entorhinal cortex,4.0,AD,FEMALE,96,Disease
+33,GSM1443282,superior temporal gyrus,4.0,AD,FEMALE,96,Disease
+34,GSM1443283,frontal cortex,4.0,AD,FEMALE,96,Disease
+35,GSM1443284,whole blood,4.0,AD,FEMALE,96,Disease
+36,GSM1443285,frontal cortex,6.0,AD,FEMALE,90,Disease
+37,GSM1443286,cerebellum,6.0,AD,FEMALE,90,Disease
+38,GSM1443287,superior temporal gyrus,6.0,AD,FEMALE,90,Disease
+39,GSM1443288,entorhinal cortex,6.0,AD,FEMALE,90,Disease
+40,GSM1443289,frontal cortex,6.0,AD,MALE,82,Disease
+41,GSM1443290,whole blood,6.0,AD,MALE,82,Disease
+42,GSM1443291,cerebellum,6.0,AD,MALE,82,Disease
+43,GSM1443292,entorhinal cortex,6.0,AD,MALE,82,Disease
+44,GSM1443293,superior temporal gyrus,6.0,AD,MALE,82,Disease
+45,GSM1443294,whole blood,6.0,AD,FEMALE,89,Disease
+46,GSM1443295,cerebellum,6.0,AD,FEMALE,89,Disease
+47,GSM1443296,entorhinal cortex,6.0,AD,FEMALE,89,Disease
+48,GSM1443297,superior temporal gyrus,6.0,AD,FEMALE,89,Disease
+49,GSM1443298,frontal cortex,6.0,AD,FEMALE,89,Disease
+50,GSM1443299,frontal cortex,6.0,AD,MALE,91,Disease
+51,GSM1443300,cerebellum,6.0,AD,MALE,91,Disease
+52,GSM1443301,superior temporal gyrus,6.0,AD,MALE,91,Disease
+53,GSM1443302,entorhinal cortex,6.0,AD,MALE,91,Disease
+54,GSM1443303,whole blood,6.0,AD,MALE,91,Disease
+55,GSM1443304,frontal cortex,5.0,AD,FEMALE,80,Disease
+56,GSM1443305,whole blood,5.0,AD,FEMALE,80,Disease
+57,GSM1443306,cerebellum,5.0,AD,FEMALE,80,Disease
+58,GSM1443307,superior temporal gyrus,5.0,AD,FEMALE,80,Disease
+59,GSM1443308,entorhinal cortex,5.0,AD,FEMALE,80,Disease
+60,GSM1443309,entorhinal cortex,,AD,MALE,89,Control
+61,GSM1443310,superior temporal gyrus,,AD,MALE,89,Control
+62,GSM1443311,frontal cortex,,AD,MALE,89,Control
+63,GSM1443312,whole blood,,AD,MALE,89,Control
+64,GSM1443313,cerebellum,,AD,MALE,89,Control
+65,GSM1443314,frontal cortex,6.0,AD,MALE,84,Disease
+66,GSM1443315,cerebellum,6.0,AD,MALE,84,Disease
+67,GSM1443316,whole blood,6.0,AD,MALE,84,Disease
+68,GSM1443317,superior temporal gyrus,6.0,AD,MALE,84,Disease
+69,GSM1443318,entorhinal cortex,3.0,AD,FEMALE,91,Disease
+70,GSM1443319,cerebellum,3.0,AD,FEMALE,91,Disease
+71,GSM1443320,superior temporal gyrus,3.0,AD,FEMALE,91,Disease
+72,GSM1443321,frontal cortex,3.0,AD,FEMALE,91,Disease
+73,GSM1443322,whole blood,3.0,AD,FEMALE,91,Disease
+74,GSM1443323,superior temporal gyrus,6.0,AD,FEMALE,84,Disease
+75,GSM1443324,whole blood,6.0,AD,FEMALE,84,Disease
+76,GSM1443325,cerebellum,6.0,AD,FEMALE,84,Disease
+77,GSM1443326,frontal cortex,6.0,AD,FEMALE,84,Disease
+78,GSM1443327,entorhinal cortex,6.0,AD,FEMALE,84,Disease
+79,GSM1443328,entorhinal cortex,6.0,AD,FEMALE,82,Disease
+80,GSM1443329,superior temporal gyrus,6.0,AD,FEMALE,82,Disease
+81,GSM1443330,cerebellum,6.0,AD,FEMALE,82,Disease
+82,GSM1443331,whole blood,6.0,AD,FEMALE,82,Disease
+83,GSM1443332,frontal cortex,6.0,AD,FEMALE,82,Disease
+84,GSM1443333,cerebellum,,AD,FEMALE,81,Control
+85,GSM1443334,whole blood,,AD,FEMALE,81,Control
+86,GSM1443335,entorhinal cortex,,AD,FEMALE,81,Control
+87,GSM1443336,frontal cortex,,AD,FEMALE,81,Control
+88,GSM1443337,superior temporal gyrus,,AD,FEMALE,81,Control
+89,GSM1443338,cerebellum,6.0,AD,FEMALE,69,Disease
+90,GSM1443340,superior temporal gyrus,6.0,AD,FEMALE,69,Disease
+91,GSM1443341,frontal cortex,6.0,AD,FEMALE,69,Disease
+92,GSM1443342,entorhinal cortex,6.0,AD,FEMALE,69,Disease
+93,GSM1443343,whole blood,,AD,FEMALE,90,Control
+94,GSM1443344,superior temporal gyrus,,AD,FEMALE,90,Control
+95,GSM1443345,cerebellum,,AD,FEMALE,90,Control
+96,GSM1443346,entorhinal cortex,,AD,FEMALE,90,Control
+97,GSM1443347,frontal cortex,,AD,FEMALE,90,Control
+98,GSM1443348,whole blood,6.0,AD,FEMALE,91,Disease
+99,GSM1443349,frontal cortex,6.0,AD,FEMALE,91,Disease
+100,GSM1443350,superior temporal gyrus,6.0,AD,FEMALE,91,Disease
+101,GSM1443351,entorhinal cortex,6.0,AD,FEMALE,91,Disease
+102,GSM1443352,cerebellum,6.0,AD,FEMALE,91,Disease
+103,GSM1443353,superior temporal gyrus,5.0,AD,FEMALE,96,Disease
+104,GSM1443354,cerebellum,5.0,AD,FEMALE,96,Disease
+105,GSM1443356,entorhinal cortex,5.0,AD,FEMALE,96,Disease
+106,GSM1443357,whole blood,5.0,AD,FEMALE,96,Disease
+107,GSM1443358,frontal cortex,5.0,AD,FEMALE,96,Disease
+108,GSM1443359,frontal cortex,5.0,AD,FEMALE,85,Disease
+109,GSM1443360,superior temporal gyrus,5.0,AD,FEMALE,85,Disease
+110,GSM1443361,cerebellum,5.0,AD,FEMALE,85,Disease
+111,GSM1443362,entorhinal cortex,5.0,AD,FEMALE,85,Disease
+112,GSM1443363,whole blood,5.0,AD,FEMALE,97,Disease
+113,GSM1443364,frontal cortex,5.0,AD,FEMALE,97,Disease
+114,GSM1443365,entorhinal cortex,5.0,AD,FEMALE,97,Disease
+115,GSM1443366,superior temporal gyrus,5.0,AD,FEMALE,97,Disease
+116,GSM1443368,cerebellum,5.0,AD,FEMALE,97,Disease
+117,GSM1443369,entorhinal cortex,3.0,Exclude,FEMALE,87,Disease
+118,GSM1443370,frontal cortex,3.0,Exclude,FEMALE,87,Disease
+119,GSM1443371,cerebellum,3.0,Exclude,FEMALE,87,Disease
+120,GSM1443372,whole blood,3.0,Exclude,FEMALE,87,Disease
+121,GSM1443373,superior temporal gyrus,3.0,Exclude,FEMALE,87,Disease
+122,GSM1443374,frontal cortex,6.0,AD,FEMALE,85,Disease
+123,GSM1443375,whole blood,6.0,AD,FEMALE,85,Disease
+124,GSM1443376,entorhinal cortex,6.0,AD,FEMALE,85,Disease
+125,GSM1443377,superior temporal gyrus,6.0,AD,FEMALE,85,Disease
+126,GSM1443378,cerebellum,6.0,AD,FEMALE,85,Disease
+127,GSM1443379,superior temporal gyrus,0.0,C,FEMALE,80,Control
+128,GSM1443381,frontal cortex,0.0,C,FEMALE,80,Control
+129,GSM1443382,cerebellum,0.0,C,FEMALE,80,Control
+130,GSM1443383,entorhinal cortex,0.0,C,FEMALE,80,Control
+131,GSM1443384,cerebellum,6.0,AD,FEMALE,87,Disease
+132,GSM1443385,whole blood,6.0,AD,FEMALE,87,Disease
+133,GSM1443386,entorhinal cortex,6.0,AD,FEMALE,87,Disease
+134,GSM1443387,frontal cortex,6.0,AD,FEMALE,87,Disease
+135,GSM1443388,superior temporal gyrus,6.0,AD,FEMALE,87,Disease
+136,GSM1443389,frontal cortex,6.0,AD,MALE,80,Disease
+137,GSM1443390,cerebellum,6.0,AD,MALE,80,Disease
+138,GSM1443391,entorhinal cortex,6.0,AD,MALE,80,Disease
+139,GSM1443392,superior temporal gyrus,6.0,AD,MALE,80,Disease
+140,GSM1443393,whole blood,6.0,AD,MALE,80,Disease
+141,GSM1443395,frontal cortex,5.0,AD,FEMALE,91,Disease
+142,GSM1443396,cerebellum,5.0,AD,FEMALE,91,Disease
+143,GSM1443397,entorhinal cortex,5.0,AD,FEMALE,91,Disease
+144,GSM1443398,superior temporal gyrus,5.0,AD,FEMALE,91,Disease
+145,GSM1443399,whole blood,5.0,AD,FEMALE,91,Disease
+146,GSM1443400,whole blood,6.0,AD,MALE,81,Disease
+147,GSM1443401,superior temporal gyrus,6.0,AD,MALE,81,Disease
+148,GSM1443402,frontal cortex,6.0,AD,MALE,81,Disease
+149,GSM1443403,entorhinal cortex,6.0,AD,MALE,81,Disease
+150,GSM1443404,cerebellum,6.0,AD,MALE,81,Disease
+151,GSM1443405,cerebellum,6.0,AD,FEMALE,92,Disease
+152,GSM1443407,whole blood,6.0,AD,FEMALE,92,Disease
+153,GSM1443408,frontal cortex,6.0,AD,FEMALE,92,Disease
+154,GSM1443409,superior temporal gyrus,6.0,AD,FEMALE,92,Disease
+155,GSM1443410,entorhinal cortex,6.0,AD,FEMALE,92,Disease
+156,GSM1443411,superior temporal gyrus,6.0,AD,MALE,71,Disease
+157,GSM1443412,entorhinal cortex,6.0,AD,MALE,71,Disease
+158,GSM1443413,frontal cortex,6.0,AD,MALE,71,Disease
+159,GSM1443414,whole blood,6.0,AD,MALE,71,Disease
+160,GSM1443415,cerebellum,6.0,AD,MALE,71,Disease
+161,GSM1443416,frontal cortex,5.0,AD,FEMALE,94,Disease
+162,GSM1443417,entorhinal cortex,5.0,AD,FEMALE,94,Disease
+163,GSM1443418,cerebellum,5.0,AD,FEMALE,94,Disease
+164,GSM1443420,superior temporal gyrus,5.0,AD,FEMALE,94,Disease
+165,GSM1443421,superior temporal gyrus,6.0,AD,MALE,90,Disease
+166,GSM1443422,entorhinal cortex,6.0,AD,MALE,90,Disease
+167,GSM1443423,frontal cortex,6.0,AD,MALE,90,Disease
+168,GSM1443424,cerebellum,6.0,AD,MALE,90,Disease
+169,GSM1443425,whole blood,6.0,AD,MALE,90,Disease
+170,GSM1443426,cerebellum,5.0,AD,MALE,86,Disease
+171,GSM1443427,superior temporal gyrus,5.0,AD,MALE,86,Disease
+172,GSM1443428,frontal cortex,5.0,AD,MALE,86,Disease
+173,GSM1443430,entorhinal cortex,5.0,AD,MALE,86,Disease
+174,GSM1443431,superior temporal gyrus,6.0,AD,MALE,88,Disease
+175,GSM1443432,entorhinal cortex,6.0,AD,MALE,88,Disease
+176,GSM1443433,whole blood,6.0,AD,MALE,88,Disease
+177,GSM1443434,frontal cortex,6.0,AD,MALE,88,Disease
+178,GSM1443435,cerebellum,6.0,AD,MALE,88,Disease
+179,GSM1443436,superior temporal gyrus,6.0,AD,FEMALE,90,Disease
+180,GSM1443437,entorhinal cortex,6.0,AD,FEMALE,90,Disease
+181,GSM1443438,frontal cortex,6.0,AD,FEMALE,90,Disease
+182,GSM1443439,whole blood,6.0,AD,FEMALE,90,Disease
+183,GSM1443440,cerebellum,6.0,AD,FEMALE,90,Disease
+184,GSM1443442,entorhinal cortex,6.0,AD,FEMALE,80,Disease
+185,GSM1443443,frontal cortex,6.0,AD,FEMALE,80,Disease
+186,GSM1443444,superior temporal gyrus,6.0,AD,FEMALE,80,Disease
+187,GSM1443445,whole blood,6.0,AD,FEMALE,80,Disease
+188,GSM1443446,cerebellum,6.0,AD,FEMALE,80,Disease
+189,GSM1443447,cerebellum,6.0,AD,FEMALE,93,Disease
+190,GSM1443448,superior temporal gyrus,6.0,AD,FEMALE,93,Disease
+191,GSM1443449,frontal cortex,6.0,AD,FEMALE,93,Disease
+192,GSM1443450,entorhinal cortex,6.0,AD,FEMALE,93,Disease
+193,GSM1443451,whole blood,6.0,AD,FEMALE,93,Disease
+194,GSM1443452,cerebellum,1.0,C,FEMALE,55,Disease
+195,GSM1443453,entorhinal cortex,1.0,C,FEMALE,55,Disease
+196,GSM1443455,frontal cortex,1.0,C,FEMALE,55,Disease
+197,GSM1443456,superior temporal gyrus,1.0,C,FEMALE,55,Disease
+198,GSM1443457,superior temporal gyrus,2.0,C,MALE,79,Disease
+199,GSM1443458,entorhinal cortex,2.0,C,MALE,79,Disease
+200,GSM1443459,frontal cortex,2.0,C,MALE,79,Disease
+201,GSM1443460,cerebellum,2.0,C,MALE,79,Disease
+202,GSM1443461,frontal cortex,1.0,C,MALE,80,Disease
+203,GSM1443462,cerebellum,1.0,C,MALE,80,Disease
+204,GSM1443463,superior temporal gyrus,1.0,C,MALE,80,Disease
+205,GSM1443464,entorhinal cortex,1.0,C,MALE,80,Disease
+206,GSM1443465,cerebellum,5.0,AD,FEMALE,88,Disease
+207,GSM1443466,frontal cortex,5.0,AD,FEMALE,88,Disease
+208,GSM1443468,superior temporal gyrus,5.0,AD,FEMALE,88,Disease
+209,GSM1443469,entorhinal cortex,5.0,AD,FEMALE,88,Disease
+210,GSM1443470,whole blood,5.0,AD,FEMALE,88,Disease
+211,GSM1443471,cerebellum,0.0,C,MALE,86,Control
+212,GSM1443472,superior temporal gyrus,0.0,C,MALE,86,Control
+213,GSM1443473,frontal cortex,0.0,C,MALE,86,Control
+214,GSM1443474,entorhinal cortex,0.0,C,MALE,86,Control
+215,GSM1443475,frontal cortex,0.0,C,FEMALE,87,Control
+216,GSM1443476,superior temporal gyrus,0.0,C,FEMALE,87,Control
+217,GSM1443477,cerebellum,0.0,C,FEMALE,87,Control
+218,GSM1443478,cerebellum,0.0,C,FEMALE,68,Control
+219,GSM1443480,superior temporal gyrus,0.0,C,FEMALE,68,Control
+220,GSM1443481,entorhinal cortex,0.0,C,MALE,59,Control
+221,GSM1443482,frontal cortex,0.0,C,MALE,59,Control
+222,GSM1443483,superior temporal gyrus,0.0,C,MALE,59,Control
+223,GSM1443484,cerebellum,0.0,C,MALE,59,Control
+224,GSM1443485,frontal cortex,5.0,Exclude,FEMALE,80,Disease
+225,GSM1443486,cerebellum,5.0,Exclude,FEMALE,80,Disease
+226,GSM1443487,superior temporal gyrus,5.0,Exclude,FEMALE,80,Disease
+227,GSM1443488,entorhinal cortex,5.0,Exclude,FEMALE,80,Disease
+228,GSM1443489,superior temporal gyrus,0.0,C,MALE,40,Control
+229,GSM1443490,cerebellum,0.0,C,MALE,40,Control
+230,GSM1443492,superior temporal gyrus,0.0,C,FEMALE,55,Control
+231,GSM1443493,cerebellum,0.0,C,FEMALE,55,Control
+232,GSM1443494,frontal cortex,0.0,C,FEMALE,55,Control
+233,GSM1443495,frontal cortex,0.0,C,FEMALE,73,Control
+234,GSM1443496,superior temporal gyrus,0.0,C,FEMALE,73,Control
+235,GSM1443497,frontal cortex,3.0,AD,MALE,80,Disease
+236,GSM1443498,entorhinal cortex,3.0,AD,MALE,80,Disease
+237,GSM1443499,superior temporal gyrus,3.0,AD,MALE,80,Disease
+238,GSM1443500,cerebellum,3.0,AD,MALE,80,Disease
+239,GSM1443501,whole blood,3.0,AD,FEMALE,98,Disease
+240,GSM1443502,superior temporal gyrus,3.0,AD,FEMALE,98,Disease
+241,GSM1443503,frontal cortex,3.0,AD,FEMALE,98,Disease
+242,GSM1443505,entorhinal cortex,3.0,AD,FEMALE,98,Disease
+243,GSM1443506,cerebellum,3.0,AD,FEMALE,98,Disease
+244,GSM1443507,superior temporal gyrus,6.0,AD,MALE,72,Disease
+245,GSM1443508,entorhinal cortex,6.0,AD,MALE,72,Disease
+246,GSM1443509,frontal cortex,6.0,AD,MALE,72,Disease
+247,GSM1443510,cerebellum,6.0,AD,MALE,72,Disease
+248,GSM1443511,entorhinal cortex,6.0,AD,FEMALE,98,Disease
+249,GSM1443512,whole blood,6.0,AD,FEMALE,98,Disease
+250,GSM1443513,frontal cortex,6.0,AD,FEMALE,98,Disease
+251,GSM1443514,superior temporal gyrus,6.0,AD,FEMALE,98,Disease
+252,GSM1443515,entorhinal cortex,3.0,Exclude,MALE,81,Disease
+253,GSM1443516,superior temporal gyrus,3.0,Exclude,MALE,81,Disease
+254,GSM1443518,frontal cortex,3.0,Exclude,MALE,81,Disease
+255,GSM1443519,whole blood,3.0,Exclude,MALE,81,Disease
+256,GSM1443520,cerebellum,3.0,Exclude,MALE,81,Disease
+257,GSM1443521,superior temporal gyrus,2.0,C,FEMALE,90,Disease
+258,GSM1443522,frontal cortex,2.0,C,FEMALE,90,Disease
+259,GSM1443523,cerebellum,2.0,C,FEMALE,90,Disease
+260,GSM1443524,entorhinal cortex,2.0,C,FEMALE,90,Disease
+261,GSM1443525,cerebellum,1.0,C,MALE,81,Disease
+262,GSM1443526,superior temporal gyrus,1.0,C,MALE,81,Disease
+263,GSM1443527,frontal cortex,1.0,C,MALE,81,Disease
+264,GSM1443528,entorhinal cortex,1.0,C,MALE,81,Disease
+265,GSM1443529,entorhinal cortex,1.0,C,MALE,66,Disease
+266,GSM1443531,frontal cortex,1.0,C,MALE,66,Disease
+267,GSM1443532,cerebellum,1.0,C,MALE,66,Disease
+268,GSM1443533,superior temporal gyrus,1.0,C,MALE,66,Disease
+269,GSM1443534,frontal cortex,6.0,AD,FEMALE,88,Disease
+270,GSM1443535,entorhinal cortex,6.0,AD,FEMALE,88,Disease
+271,GSM1443536,cerebellum,6.0,AD,FEMALE,88,Disease
+272,GSM1443537,superior temporal gyrus,6.0,AD,FEMALE,88,Disease
+273,GSM1443538,entorhinal cortex,3.0,Exclude,MALE,86,Disease
+274,GSM1443539,cerebellum,3.0,Exclude,MALE,86,Disease
+275,GSM1443540,superior temporal gyrus,3.0,Exclude,MALE,86,Disease
+276,GSM1443541,frontal cortex,3.0,Exclude,MALE,86,Disease
+277,GSM1443543,whole blood,3.0,Exclude,MALE,86,Disease
+278,GSM1443544,cerebellum,4.0,AD,MALE,82,Disease
+279,GSM1443545,superior temporal gyrus,4.0,AD,MALE,82,Disease
+280,GSM1443546,entorhinal cortex,4.0,AD,MALE,82,Disease
+281,GSM1443547,frontal cortex,4.0,AD,MALE,82,Disease
+282,GSM1443548,whole blood,4.0,AD,MALE,82,Disease
+283,GSM1443549,cerebellum,3.0,Exclude,FEMALE,90,Disease
+284,GSM1443550,frontal cortex,3.0,Exclude,FEMALE,90,Disease
+285,GSM1443551,entorhinal cortex,3.0,Exclude,FEMALE,90,Disease
+286,GSM1443552,superior temporal gyrus,3.0,Exclude,FEMALE,90,Disease
+287,GSM1443553,whole blood,3.0,Exclude,FEMALE,90,Disease
+288,GSM1443555,entorhinal cortex,5.0,Exclude,MALE,88,Disease
+289,GSM1443556,cerebellum,5.0,Exclude,MALE,88,Disease
+290,GSM1443557,frontal cortex,5.0,Exclude,MALE,88,Disease
+291,GSM1443558,superior temporal gyrus,5.0,Exclude,MALE,88,Disease
+292,GSM1443559,whole blood,5.0,Exclude,MALE,88,Disease
+293,GSM1443560,cerebellum,6.0,Exclude,MALE,80,Disease
+294,GSM1443561,whole blood,6.0,Exclude,MALE,80,Disease
+295,GSM1443562,superior temporal gyrus,6.0,Exclude,MALE,80,Disease
+296,GSM1443563,frontal cortex,6.0,Exclude,MALE,80,Disease
+297,GSM1443564,whole blood,6.0,AD,FEMALE,79,Disease
+298,GSM1443565,frontal cortex,6.0,AD,FEMALE,79,Disease
+299,GSM1443566,cerebellum,6.0,AD,FEMALE,79,Disease
+300,GSM1443568,superior temporal gyrus,6.0,AD,FEMALE,79,Disease
+301,GSM1443569,entorhinal cortex,6.0,AD,FEMALE,79,Disease
+302,GSM1443570,whole blood,6.0,Exclude,FEMALE,85,Disease
+303,GSM1443571,entorhinal cortex,6.0,Exclude,FEMALE,85,Disease
+304,GSM1443572,cerebellum,6.0,Exclude,FEMALE,85,Disease
+305,GSM1443573,frontal cortex,6.0,Exclude,FEMALE,85,Disease
+306,GSM1443574,superior temporal gyrus,6.0,Exclude,FEMALE,85,Disease
+307,GSM1443575,cerebellum,4.0,AD,FEMALE,89,Disease
+308,GSM1443576,whole blood,4.0,AD,FEMALE,89,Disease
+309,GSM1443577,frontal cortex,4.0,AD,FEMALE,89,Disease
+310,GSM1443578,superior temporal gyrus,4.0,AD,FEMALE,89,Disease
+311,GSM1443579,entorhinal cortex,4.0,AD,FEMALE,89,Disease
+312,GSM1443581,entorhinal cortex,6.0,Exclude,FEMALE,85,Disease
+313,GSM1443582,cerebellum,6.0,Exclude,FEMALE,85,Disease
+314,GSM1443583,frontal cortex,6.0,Exclude,FEMALE,85,Disease
+315,GSM1443584,whole blood,6.0,Exclude,FEMALE,85,Disease
+316,GSM1443585,superior temporal gyrus,6.0,Exclude,FEMALE,85,Disease
+317,GSM1443586,frontal cortex,4.0,AD,FEMALE,84,Disease
+318,GSM1443587,entorhinal cortex,4.0,AD,FEMALE,84,Disease
+319,GSM1443588,cerebellum,4.0,AD,FEMALE,84,Disease
+320,GSM1443589,superior temporal gyrus,4.0,AD,FEMALE,84,Disease
+321,GSM1443590,whole blood,4.0,AD,FEMALE,84,Disease
+322,GSM1443591,cerebellum,6.0,AD,FEMALE,86,Disease
+323,GSM1443592,frontal cortex,6.0,AD,FEMALE,86,Disease
+324,GSM1443593,whole blood,6.0,AD,FEMALE,86,Disease
+325,GSM1443595,superior temporal gyrus,6.0,AD,FEMALE,86,Disease
+326,GSM1443596,entorhinal cortex,6.0,AD,FEMALE,86,Disease
+327,GSM1443597,frontal cortex,5.0,AD,FEMALE,103,Disease
+328,GSM1443598,entorhinal cortex,5.0,AD,FEMALE,103,Disease
+329,GSM1443599,superior temporal gyrus,5.0,AD,FEMALE,103,Disease
+330,GSM1443600,cerebellum,5.0,AD,FEMALE,103,Disease
+331,GSM1443601,whole blood,5.0,AD,FEMALE,103,Disease
+332,GSM1443602,superior temporal gyrus,6.0,AD,MALE,74,Disease
+333,GSM1443603,frontal cortex,6.0,AD,MALE,74,Disease
+334,GSM1443604,entorhinal cortex,6.0,AD,MALE,74,Disease
+335,GSM1443605,cerebellum,6.0,AD,MALE,74,Disease
+336,GSM1443606,whole blood,6.0,AD,MALE,74,Disease
+337,GSM1443607,whole blood,6.0,AD,MALE,88,Disease
+338,GSM1443608,entorhinal cortex,6.0,AD,MALE,88,Disease
+339,GSM1443609,superior temporal gyrus,6.0,AD,MALE,88,Disease
+340,GSM1443610,cerebellum,6.0,AD,MALE,88,Disease
+341,GSM1443611,frontal cortex,6.0,AD,MALE,88,Disease
+342,GSM1443612,entorhinal cortex,6.0,AD,FEMALE,81,Disease
+343,GSM1443613,whole blood,6.0,AD,FEMALE,81,Disease
+344,GSM1443614,superior temporal gyrus,6.0,AD,FEMALE,81,Disease
+345,GSM1443615,frontal cortex,6.0,AD,FEMALE,81,Disease
+346,GSM1443616,cerebellum,6.0,AD,FEMALE,81,Disease
+347,GSM1443617,whole blood,5.0,AD,MALE,77,Disease
+348,GSM1443618,entorhinal cortex,5.0,AD,MALE,77,Disease
+349,GSM1443619,cerebellum,5.0,AD,MALE,77,Disease
+350,GSM1443620,superior temporal gyrus,5.0,AD,MALE,77,Disease
+351,GSM1443621,frontal cortex,5.0,AD,MALE,77,Disease
+352,GSM1443622,entorhinal cortex,6.0,AD,MALE,86,Disease
+353,GSM1443623,superior temporal gyrus,6.0,AD,MALE,86,Disease
+354,GSM1443624,cerebellum,6.0,AD,MALE,86,Disease
+355,GSM1443625,frontal cortex,6.0,AD,MALE,86,Disease
+356,GSM1443626,frontal cortex,6.0,Exclude,MALE,75,Disease
+357,GSM1443627,superior temporal gyrus,6.0,Exclude,MALE,75,Disease
+358,GSM1443628,entorhinal cortex,6.0,Exclude,MALE,75,Disease
+359,GSM1443629,cerebellum,6.0,Exclude,MALE,75,Disease
+360,GSM1443630,whole blood,6.0,Exclude,MALE,75,Disease
+361,GSM1443631,entorhinal cortex,3.0,AD,FEMALE,92,Disease
+362,GSM1443632,frontal cortex,3.0,AD,FEMALE,92,Disease
+363,GSM1443633,whole blood,3.0,AD,FEMALE,92,Disease
+364,GSM1443634,superior temporal gyrus,3.0,AD,FEMALE,92,Disease
+365,GSM1443635,cerebellum,3.0,AD,FEMALE,92,Disease
+366,GSM1443636,superior temporal gyrus,3.0,Exclude,MALE,86,Disease
+367,GSM1443637,entorhinal cortex,3.0,Exclude,MALE,86,Disease
+368,GSM1443638,whole blood,3.0,Exclude,MALE,86,Disease
+369,GSM1443639,cerebellum,3.0,Exclude,MALE,86,Disease
+370,GSM1443640,frontal cortex,3.0,Exclude,MALE,86,Disease
+371,GSM1443641,superior temporal gyrus,6.0,Exclude,FEMALE,84,Disease
+372,GSM1443642,entorhinal cortex,6.0,Exclude,FEMALE,84,Disease
+373,GSM1443643,frontal cortex,6.0,Exclude,FEMALE,84,Disease
+374,GSM1443644,whole blood,6.0,Exclude,FEMALE,84,Disease
+375,GSM1443645,entorhinal cortex,5.0,Exclude,FEMALE,92,Disease
+376,GSM1443646,superior temporal gyrus,5.0,Exclude,FEMALE,92,Disease
+377,GSM1443647,cerebellum,5.0,Exclude,FEMALE,92,Disease
+378,GSM1443648,frontal cortex,5.0,Exclude,FEMALE,92,Disease
+379,GSM1443649,whole blood,5.0,Exclude,FEMALE,92,Disease
+380,GSM1443650,whole blood,6.0,AD,FEMALE,79,Disease
+381,GSM1443651,entorhinal cortex,6.0,AD,FEMALE,79,Disease
+382,GSM1443652,cerebellum,6.0,AD,FEMALE,79,Disease
+383,GSM1443653,superior temporal gyrus,6.0,AD,FEMALE,79,Disease
+384,GSM1443654,frontal cortex,6.0,AD,FEMALE,79,Disease
+385,GSM1443655,superior temporal gyrus,1.0,C,FEMALE,92,Disease
+386,GSM1443656,frontal cortex,1.0,C,FEMALE,92,Disease
+387,GSM1443657,cerebellum,1.0,C,FEMALE,92,Disease
+388,GSM1443658,whole blood,1.0,C,FEMALE,92,Disease
+389,GSM1443659,entorhinal cortex,1.0,C,FEMALE,92,Disease
+390,GSM1443660,superior temporal gyrus,5.0,Exclude,MALE,97,Disease
+391,GSM1443661,entorhinal cortex,5.0,Exclude,MALE,97,Disease
+392,GSM1443662,whole blood,5.0,Exclude,MALE,97,Disease
+393,GSM1443663,frontal cortex,5.0,Exclude,MALE,97,Disease
+394,GSM1443664,cerebellum,5.0,Exclude,MALE,97,Disease
+395,GSM1443665,cerebellum,6.0,Exclude,FEMALE,80,Disease
+396,GSM1443666,superior temporal gyrus,6.0,Exclude,FEMALE,80,Disease
+397,GSM1443667,entorhinal cortex,6.0,Exclude,FEMALE,80,Disease
+398,GSM1443668,whole blood,6.0,Exclude,FEMALE,80,Disease
+399,GSM1443669,frontal cortex,6.0,Exclude,FEMALE,80,Disease
+400,GSM1443670,entorhinal cortex,6.0,AD,FEMALE,98,Disease
+401,GSM1443671,frontal cortex,6.0,AD,FEMALE,98,Disease
+402,GSM1443672,cerebellum,6.0,AD,FEMALE,98,Disease
+403,GSM1443673,superior temporal gyrus,6.0,AD,FEMALE,98,Disease
+404,GSM1443674,whole blood,6.0,AD,FEMALE,98,Disease
+405,GSM1443675,whole blood,1.0,Exclude,FEMALE,85,Disease
+406,GSM1443676,frontal cortex,1.0,Exclude,FEMALE,85,Disease
+407,GSM1443677,entorhinal cortex,1.0,Exclude,FEMALE,85,Disease
+408,GSM1443678,cerebellum,1.0,Exclude,FEMALE,85,Disease
+409,GSM1443679,superior temporal gyrus,1.0,Exclude,FEMALE,85,Disease
+410,GSM1443680,entorhinal cortex,6.0,Exclude,MALE,88,Disease
+411,GSM1443681,superior temporal gyrus,6.0,Exclude,MALE,88,Disease
+412,GSM1443682,cerebellum,6.0,Exclude,MALE,88,Disease
+413,GSM1443683,frontal cortex,6.0,Exclude,MALE,88,Disease
+414,GSM1443684,whole blood,6.0,Exclude,MALE,88,Disease
+415,GSM1443685,frontal cortex,2.0,Exclude,MALE,97,Disease
+416,GSM1443686,superior temporal gyrus,2.0,Exclude,MALE,97,Disease
+417,GSM1443687,entorhinal cortex,2.0,Exclude,MALE,97,Disease
+418,GSM1443688,cerebellum,2.0,Exclude,MALE,97,Disease
+419,GSM1443689,entorhinal cortex,4.0,Exclude,FEMALE,94,Disease
+420,GSM1443690,whole blood,4.0,Exclude,FEMALE,94,Disease
+421,GSM1443691,frontal cortex,4.0,Exclude,FEMALE,94,Disease
+422,GSM1443692,cerebellum,4.0,Exclude,FEMALE,94,Disease
+423,GSM1443693,superior temporal gyrus,4.0,Exclude,FEMALE,94,Disease
+424,GSM1443694,superior temporal gyrus,5.0,Exclude,MALE,105,Disease
+425,GSM1443695,entorhinal cortex,5.0,Exclude,MALE,105,Disease
+426,GSM1443696,whole blood,5.0,Exclude,MALE,105,Disease
+427,GSM1443697,frontal cortex,5.0,Exclude,MALE,105,Disease
+428,GSM1443698,cerebellum,5.0,Exclude,MALE,105,Disease
+429,GSM1443699,whole blood,5.0,AD,FEMALE,95,Disease
+430,GSM1443700,frontal cortex,5.0,AD,FEMALE,95,Disease
+431,GSM1443701,cerebellum,5.0,AD,FEMALE,95,Disease
+432,GSM1443702,superior temporal gyrus,5.0,AD,FEMALE,95,Disease
+433,GSM1443703,entorhinal cortex,5.0,AD,FEMALE,95,Disease
+434,GSM1443704,frontal cortex,5.0,Exclude,MALE,89,Disease
+435,GSM1443705,superior temporal gyrus,5.0,Exclude,MALE,89,Disease
+436,GSM1443706,entorhinal cortex,5.0,Exclude,MALE,89,Disease
+437,GSM1443707,whole blood,5.0,Exclude,MALE,89,Disease
+438,GSM1443708,cerebellum,5.0,Exclude,MALE,89,Disease
+439,GSM1443709,superior temporal gyrus,6.0,AD,FEMALE,83,Disease
+440,GSM1443710,cerebellum,6.0,AD,FEMALE,83,Disease
+441,GSM1443711,whole blood,6.0,AD,FEMALE,83,Disease
+442,GSM1443712,whole blood,2.0,Exclude,FEMALE,87,Disease
+443,GSM1443713,cerebellum,2.0,Exclude,FEMALE,87,Disease
+444,GSM1443714,superior temporal gyrus,2.0,Exclude,FEMALE,87,Disease
+445,GSM1443715,entorhinal cortex,2.0,Exclude,FEMALE,87,Disease
+446,GSM1443716,frontal cortex,2.0,Exclude,FEMALE,87,Disease
+447,GSM1443717,entorhinal cortex,6.0,AD,FEMALE,83,Disease
+448,GSM1443718,cerebellum,6.0,AD,FEMALE,83,Disease
+449,GSM1443719,superior temporal gyrus,6.0,AD,FEMALE,83,Disease
+450,GSM1443720,frontal cortex,6.0,AD,FEMALE,83,Disease
+451,GSM1443721,whole blood,6.0,AD,FEMALE,83,Disease
+452,GSM1443722,whole blood,3.0,Exclude,FEMALE,90,Disease
+453,GSM1443723,frontal cortex,3.0,Exclude,FEMALE,90,Disease
+454,GSM1443724,cerebellum,3.0,Exclude,FEMALE,90,Disease
+455,GSM1443725,superior temporal gyrus,3.0,Exclude,FEMALE,90,Disease
+456,GSM1443726,entorhinal cortex,3.0,Exclude,FEMALE,90,Disease
+457,GSM1443727,entorhinal cortex,6.0,Exclude,FEMALE,72,Disease
+458,GSM1443728,superior temporal gyrus,6.0,Exclude,FEMALE,72,Disease
+459,GSM1443729,frontal cortex,6.0,Exclude,FEMALE,72,Disease
+460,GSM1443730,cerebellum,6.0,Exclude,FEMALE,72,Disease
+461,GSM1443731,frontal cortex,6.0,Exclude,FEMALE,88,Disease
+462,GSM1443732,cerebellum,6.0,Exclude,FEMALE,88,Disease
+463,GSM1443733,superior temporal gyrus,6.0,Exclude,FEMALE,88,Disease
+464,GSM1443734,entorhinal cortex,6.0,Exclude,FEMALE,88,Disease
+465,GSM1443735,entorhinal cortex,6.0,AD,FEMALE,95,Disease
+466,GSM1443736,whole blood,6.0,AD,FEMALE,95,Disease
+467,GSM1443737,cerebellum,6.0,AD,FEMALE,95,Disease
+468,GSM1443738,superior temporal gyrus,6.0,AD,FEMALE,95,Disease
+469,GSM1443739,frontal cortex,6.0,AD,FEMALE,95,Disease
+470,GSM1443740,whole blood,5.0,AD,MALE,83,Disease
+471,GSM1443741,frontal cortex,5.0,AD,MALE,83,Disease
+472,GSM1443742,superior temporal gyrus,5.0,AD,MALE,83,Disease
+473,GSM1443743,cerebellum,5.0,AD,MALE,83,Disease
+474,GSM1443744,cerebellum,1.0,C,MALE,74,Disease
+475,GSM1443745,frontal cortex,1.0,C,MALE,74,Disease
+476,GSM1443746,entorhinal cortex,1.0,C,MALE,74,Disease
+477,GSM1443747,superior temporal gyrus,1.0,C,MALE,74,Disease
+478,GSM1443748,entorhinal cortex,6.0,Exclude,MALE,79,Disease
+479,GSM1443749,superior temporal gyrus,6.0,Exclude,MALE,79,Disease
+480,GSM1443750,cerebellum,6.0,Exclude,MALE,79,Disease
+481,GSM1443751,frontal cortex,6.0,Exclude,MALE,79,Disease
+482,GSM1443752,entorhinal cortex,1.0,C,MALE,77,Disease
+483,GSM1443753,superior temporal gyrus,1.0,C,MALE,77,Disease
+484,GSM1443754,cerebellum,1.0,C,MALE,77,Disease
+485,GSM1443755,frontal cortex,1.0,C,MALE,77,Disease
+486,GSM1443756,frontal cortex,2.0,C,MALE,82,Disease
+487,GSM1443757,superior temporal gyrus,2.0,C,MALE,82,Disease
+488,GSM1443758,entorhinal cortex,2.0,C,MALE,82,Disease
+489,GSM1443759,cerebellum,2.0,C,MALE,82,Disease
+490,GSM1443760,entorhinal cortex,6.0,Exclude,MALE,67,Disease
+491,GSM1443761,frontal cortex,6.0,Exclude,MALE,67,Disease
+492,GSM1443762,cerebellum,6.0,Exclude,MALE,67,Disease
+493,GSM1443763,superior temporal gyrus,6.0,Exclude,MALE,67,Disease
+494,GSM1443764,cerebellum,0.0,C,MALE,73,Control
+495,GSM1443765,frontal cortex,0.0,C,MALE,73,Control
+496,GSM1443766,entorhinal cortex,0.0,C,MALE,73,Control
+497,GSM1443767,superior temporal gyrus,0.0,C,MALE,73,Control
+498,GSM1443768,frontal cortex,3.0,AD,FEMALE,86,Disease
+499,GSM1443769,superior temporal gyrus,3.0,AD,FEMALE,86,Disease
+500,GSM1443770,entorhinal cortex,3.0,AD,FEMALE,86,Disease
+501,GSM1443771,cerebellum,3.0,AD,FEMALE,86,Disease
+502,GSM1443772,superior temporal gyrus,6.0,AD,MALE,66,Disease
+503,GSM1443773,frontal cortex,6.0,AD,MALE,66,Disease
+504,GSM1443774,cerebellum,6.0,AD,MALE,66,Disease
+505,GSM1443775,entorhinal cortex,6.0,AD,MALE,66,Disease
+506,GSM1443776,frontal cortex,5.0,Exclude,FEMALE,83,Disease
+507,GSM1443777,entorhinal cortex,5.0,Exclude,FEMALE,83,Disease
+508,GSM1443778,superior temporal gyrus,5.0,Exclude,FEMALE,83,Disease
+509,GSM1443779,cerebellum,5.0,Exclude,FEMALE,83,Disease
+510,GSM1443780,entorhinal cortex,6.0,AD,MALE,90,Disease
+511,GSM1443781,frontal cortex,6.0,AD,MALE,90,Disease
+512,GSM1443782,cerebellum,6.0,AD,MALE,90,Disease
+513,GSM1443783,superior temporal gyrus,6.0,AD,MALE,90,Disease
+514,GSM1443784,superior temporal gyrus,3.0,C,MALE,95,Disease
+515,GSM1443785,entorhinal cortex,3.0,C,MALE,95,Disease
+516,GSM1443786,cerebellum,3.0,C,MALE,95,Disease
+517,GSM1443787,frontal cortex,3.0,C,MALE,95,Disease
+518,GSM1443788,frontal cortex,1.0,C,FEMALE,79,Disease
+519,GSM1443789,entorhinal cortex,1.0,C,FEMALE,79,Disease
+520,GSM1443790,cerebellum,1.0,C,FEMALE,79,Disease
+521,GSM1443791,superior temporal gyrus,1.0,C,FEMALE,79,Disease
+522,GSM1443792,frontal cortex,2.0,C,FEMALE,91,Disease
+523,GSM1443793,entorhinal cortex,2.0,C,FEMALE,91,Disease
+524,GSM1443794,superior temporal gyrus,2.0,C,FEMALE,91,Disease
+525,GSM1443795,cerebellum,2.0,C,FEMALE,91,Disease
+526,GSM1443796,whole blood,,C,MALE,NA,Control
+527,GSM1443797,whole blood,,C,FEMALE,NA,Control
+528,GSM1443798,whole blood,,C,FEMALE,NA,Control
+529,GSM1443799,whole blood,,C,FEMALE,NA,Control
+530,GSM1443800,whole blood,,C,MALE,NA,Control
