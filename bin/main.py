@@ -77,9 +77,8 @@ if __name__ == "__main__":
     else:
         results = DMA.DMA(betas, samplesheet, group1=GROUP1, group2=GROUP2, output_dir=output_dir)
 
-    # 4.1) Plotss
+    # 4.1) Plots
     graphics.plot_top_cpg(betas, output_plot_dir, samplesheet, results, probe=None, group_column="Condition")
     graphics.volcano_plot(results, output_plot_dir, fdr_threshold=0.05, delta_threshold=0.10)
-    graphics.plot_all_significant_cpgs(results, output_plot_dir, samplesheet, results, pvalue_threshold=0.05, group_column="Condition")
 
 

@@ -99,9 +99,6 @@ Several CpGs differentially methylated are found, however only cpg08782356 remai
 ![alt text](./results/Plot_outputs/volcano.png)
 
 
-The beta 
-
-![alt text](./results/Plot_outputs/top_cpg.png)
 
 
 4. Conclusion
