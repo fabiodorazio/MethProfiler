@@ -38,7 +38,7 @@ pip install -e .
 4. Start Methprofiler with the following command:
 
 ```bash
-python3 __main.py__
+python3 ./bin/main.py
 ```
 
 
@@ -60,3 +60,28 @@ python3 __main.py__
 
 
 **Analysis of Blood Samples**
+Metprofiler command to run the analysis on blood subset:
+```bash
+python ./bin/main.py assets/betas.csv assets/samplesheet.csv -o ./results/ --keep 'whole blood'
+```
+Age distribution tending towards elderly patients as expected, with a peak at 80 years old
+![alt text](./results/Plot_outputs/Control_age_distr.png)
+
+Diseased samples are also as expected concentrated in older patients
+![alt text](./results/Plot_outputs/Disease_age_distr.png)
+
+There is significant more patients with the disease compared to controls
+![alt text](./results/Plot_outputs/group_distr.png)
+
+PCA shows that gender is an important confounding
+![alt text](./results/Plot_outputs/PCA_Condition.png)
+
+![alt text](./results/Plot_outputs/PCA_Sex.png)
+
+The differential methylation results are represented as volcano plot highlighting the significant cpgs
+![alt text](./results/Plot_outputs/volcano.png)
+
+The beta 
+![alt text](./results/Plot_outputs/top_cpg.png)
+
+Conclusion: This analysis allows to shortlist significant CpGs that show differential methylation patterns between ALS and control patients after removing confounding variables

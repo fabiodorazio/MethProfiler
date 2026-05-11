@@ -11,12 +11,12 @@ def get_args():
     parser.add_argument("betas", help = "Input path to beta values")
     parser.add_argument("samplesheet", help = "Input path to samplesheet")
     parser.add_argument("-n", dest="name", default=None, help="Output file name without the format")
-    parser.add_argument("-o", dest="output_dir", default="../outputs", help="Output directory path")
+    parser.add_argument("-o", dest="output_dir", default="./results", help="Output directory path")
     parser.add_argument("--test-mode", dest="test_mode", default='Off', help="When `On`, runs the pipeline on a smaller subset of beta probes")
     parser.add_argument("--keep", dest="to_keep", nargs='+', default=None, help="A list of tissue sources for filtering the dataset. Default = None")
     parser.add_argument("--normalise", dest="normalise", action="store_true", help="If normalisation is not needed, turns this argument off")
     parser.add_argument("--norm-method", dest="norm_method", default="zscore", choices=["zscore", "quantile"], type=str, help="Which normalization method is applied to betas. Either z-score or quantiles")
-    parser.add_argument("--covariates", dest="covariates", action="store_true", help="Whether or not covariates are considered")
+    parser.add_argument("--covariates", dest="covariates", nargs='+', default=None, help="Whether or not covariates are considered")
     parser.add_argument("--group1", dest="group1", default="Control", type=str, help="Category of group1 comparison")
     parser.add_argument("--group2", dest="group2", default="Disease", type=str, help="Category of group2 comparison")
 
@@ -73,9 +73,9 @@ if __name__ == "__main__":
 
     # 4) Differential Analysis
     if COVARIATES:
-        results = DMA.DMA_linear_model()
+        results =  DMA.DMA_adjusted(betas, samplesheet,group1=GROUP1,group2=GROUP2,output_dir=output_dir, covariates=['Sex', 'age'])
     else:
-        results = DMA.DMA(betas, samplesheet, group1=GROUP1, group2=GROUP2)
+        results = DMA.DMA(betas, samplesheet, group1=GROUP1, group2=GROUP2, output_dir=output_dir)
 
     # 4.1) Plotss
     graphics.plot_top_cpg(betas, output_plot_dir, samplesheet, results, probe=None, group_column="Condition")

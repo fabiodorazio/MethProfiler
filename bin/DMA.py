@@ -6,6 +6,7 @@ from scipy import stats
 from statsmodels.stats.multitest import multipletests
 import statsmodels.api as sm
 from scipy.stats import ttest_ind
+from pathlib import Path
 
 import utils
 import graphics
@@ -18,7 +19,7 @@ The csv has an header that describes the labels
 > '# row1: Sample barcodes\n' '# row2: New GSMs\n' '# row3: Old (Re-analyzed) GSMs\n' '\n'
 
 '''
-#'/Users/fdorazio/Desktop/Projects/Metprofiler/assets/GSE59685_betas.csv'
+
 def load_meth(betas_path, samplesheet_path, sample_on='Off', test_mode='Off', samples_to_keep=None):
     '''
     read samplesheet and beta file
@@ -47,9 +48,12 @@ def load_meth(betas_path, samplesheet_path, sample_on='Off', test_mode='Off', sa
         if sample_on == 'On':
             sampled = random.sample(list(betas.columns), 20)
             betas = betas.loc[:, sampled]
-            betas.to_csv(
-                '/Users/fdorazio/Desktop/Projects/Metprofiler/test/GSE59685_betas_sub.csv'
-            )
+            # get path
+            test_dir = Path.cwd() / 'test'
+            test_dir = utils.check_output_dir(test_dir)
+            test_betas = test_dir / 'GSE59685_betas_sub.csv'
+
+            betas.to_csv(test_betas)
     elif test_mode == 'On':
         betas = pd.read_csv(
             betas_path,
@@ -69,7 +73,10 @@ def load_meth(betas_path, samplesheet_path, sample_on='Off', test_mode='Off', sa
     ####
     # -> keep only matching samples
     # match new_gms with column names
-    gsm_new = pd.read_csv('/Users/fdorazio/Desktop/Projects/Metprofiler/assets/GSE59685_SampleBarcode_Re-analyzedGSMs_NewGSMs.txt', sep = '\t')
+    assets_dir = Path.cwd() / 'assets'
+    asset_gsm = assets_dir / 'GSE59685_SampleBarcode_Re-analyzedGSMs_NewGSMs.txt'
+
+    gsm_new = pd.read_csv(asset_gsm, sep = '\t')
     # merge with samplesheet
     samplesheet = samplesheet.merge(
         gsm_new[['NEW_GSMs', 'Sample_Barcode']],
@@ -96,38 +103,7 @@ def load_meth(betas_path, samplesheet_path, sample_on='Off', test_mode='Off', sa
 
     return(sub_betas, samplesheet)
 
-#betas, samplesheet = load_meth('/Users/fdorazio/Desktop/Projects/Metprofiler/assets/GSE59685_betas.csv',
-#                '/Users/fdorazio/Desktop/Projects/Metprofiler/assets/samplesheet_processed.csv',
-#                test_mode='Off',
-#                samples_to_keep=['whole blood'])
 
-#samplesheet.to_csv('/Users/fdorazio/Desktop/Projects/Metprofiler/test/samplesheet_processed.csv')
-
-# to delete
-'''
-betas = pd.read_csv('/Users/fdorazio/Desktop/Projects/Metprofiler/test/GSE59685_betas_test_blood.csv', index_col=0)
-samplesheet = pd.read_csv('/Users/fdorazio/Desktop/Projects/Metprofiler/assets/samplesheet_processed.csv')
-gsm_new = pd.read_csv('/Users/fdorazio/Desktop/Projects/Metprofiler/assets/GSE59685_SampleBarcode_Re-analyzedGSMs_NewGSMs.txt', sep = '\t')
-ids = gsm_new[gsm_new['Sample_Barcode'].isin(betas.columns)]['NEW_GSMs']
-print(ids)
-samplesheet = samplesheet[samplesheet['sampleId'].isin(ids)]
-samplesheet = samplesheet.merge(
-        gsm_new[['NEW_GSMs', 'Sample_Barcode']],
-        left_on='sampleId',
-        right_on='NEW_GSMs',
-        how='left')
-print('#1')
-print(betas)
-
-print(samplesheet)
-OUTPUT = '/Users/fdorazio/Desktop/Projects/Metprofiler/results'
-output_dir = utils.check_output_dir(OUTPUT)
-output_plot_dir = utils.check_output_dir(output_dir + '/Plot_outputs')
-graphics.plot_age_distribution(samplesheet,output_plot_dir, age_column="age", group_column="Condition")
-graphics.plot_group_counts(samplesheet, output_plot_dir, group_column="Condition")
-graphics.plot_sex_distribution(samplesheet, output_plot_dir, sex_column="Sex")
-graphics.plot_pca(betas, samplesheet, output_plot_dir, group_column="Sex")
-'''
 
 def meth_qc(betas, samplesheet):
     print(samplesheet)
@@ -153,16 +129,14 @@ def meth_qc(betas, samplesheet):
     ####
     # -> remove low-variance probes which add little biological meaning
     probe_sd = betas.std(axis=1)
-    removed_lowvar = (probe_sd <= 0.02).sum()
-    betas = betas.loc[probe_sd > 0.02]
+    removed_lowvar = (probe_sd <= 0.005).sum()
+    betas = betas.loc[probe_sd > 0.005]
     print(f"Removed {removed_lowvar} low-variance probes")
     print(betas.shape)
     ####
     return(betas)
 
-print('#2')
-#betas = meth_qc(betas, samplesheet)
-#print(betas)
+
 
 def meth_normalise(betas, method="zscore"):
     """
@@ -195,16 +169,12 @@ def meth_normalise(betas, method="zscore"):
 
     return norm_betas
 
-print('#3')
-#norm_betas = meth_normalise(betas)
-#print(norm_betas)
 
 
-def DMA(betas, samplesheet, group1, group2):
 
-    # ------------------------------------------------------------
+def DMA(betas, samplesheet, group1, group2, output_dir='results/'):
+
     # Clean sample IDs
-    # ------------------------------------------------------------
     samplesheet["Sample_Barcode"] = (
         samplesheet["Sample_Barcode"]
         .astype(str)
@@ -213,9 +183,7 @@ def DMA(betas, samplesheet, group1, group2):
 
     betas.columns = betas.columns.astype(str).str.strip()
 
-    # ------------------------------------------------------------
     # Sample selection
-    # ------------------------------------------------------------
     g1_samples = pd.Index(
         samplesheet.loc[
             samplesheet["Condition"] == group1,
@@ -233,23 +201,16 @@ def DMA(betas, samplesheet, group1, group2):
     print(f"{group1}: {len(g1_samples)} samples")
     print(f"{group2}: {len(g2_samples)} samples")
 
-    # ------------------------------------------------------------
     # Convert to matrices
-    # ------------------------------------------------------------
     g1_matrix = betas[g1_samples].to_numpy(dtype=float)
     g2_matrix = betas[g2_samples].to_numpy(dtype=float)
-
-    # ------------------------------------------------------------
-    # Means
-    # ------------------------------------------------------------
+    # means
     mean1 = np.nanmean(g1_matrix, axis=1)
     mean2 = np.nanmean(g2_matrix, axis=1)
 
     delta_beta = mean1 - mean2
 
-    # ------------------------------------------------------------
     # Vectorized t-test
-    # ------------------------------------------------------------
     stat, pval = ttest_ind(
         g1_matrix,
         g2_matrix,
@@ -258,9 +219,7 @@ def DMA(betas, samplesheet, group1, group2):
         nan_policy="omit"
     )
 
-    # ------------------------------------------------------------
-    # Results dataframe
-    # ------------------------------------------------------------
+    # output
     results = pd.DataFrame({
         "Probe": betas.index,
         "mean_group1": mean1,
@@ -270,37 +229,25 @@ def DMA(betas, samplesheet, group1, group2):
         "p_value": pval
     })
 
-    # ------------------------------------------------------------
-    # Remove invalid rows
-    # ------------------------------------------------------------
+    # remove invalid rows
     results = results.dropna(subset=["p_value"])
 
-    # ------------------------------------------------------------
     # FDR correction
-    # ------------------------------------------------------------
     results["FDR"] = multipletests(
         results["p_value"],
         method="fdr_bh"
     )[1]
 
     results = results.sort_values("FDR")
-
+    results.to_csv(f'{output_dir}/dma.csv')
 
     return results
 
-print('#4')
-#res = DMA(norm_betas, samplesheet, group1="Control", group2="Disease")
-#print(res)
-
-import numpy as np
-import pandas as pd
-from scipy import stats
-from statsmodels.stats.multitest import multipletests
 
 
 def beta_to_m_values(betas, eps=1e-6):
     """
-    Convert beta values to M-values for statistical testing.
+    Convert beta values to M-values for statistical testing
     """
     betas = betas.clip(eps, 1 - eps)
     return np.log2(betas / (1 - betas))
@@ -309,18 +256,19 @@ def beta_to_m_values(betas, eps=1e-6):
 def DMA_adjusted(betas, samplesheet,
     group1,
     group2,
+    output_dir="results/",
     covariates=None, sample_col="Sample_Barcode", condition_col="Condition",
     use_m_values=True,
     min_non_na_fraction=0.8,
 ):
     """
-    Differential methylation analysis adjusted for covariates.
+    Differential methylation analysis adjusted for covariates
 
     covariates : list or None
-        Metadata columns to adjust for, e.g. ["Gender", "Age", "Batch"].
+        Metadata columns to adjust for, e.g. ["Gender", "Age", "Batch"]
 
     min_non_na_fraction : float
-        Keep probes with at least this fraction of non-missing samples.
+        Keep probes with at least this fraction of non-missing samples
 
     """
 
@@ -402,9 +350,7 @@ def DMA_adjusted(betas, samplesheet,
     samplesheet = samplesheet.loc[valid_samples]
     betas = betas.loc[:, design.index]
 
-    # ------------------------------------------------------------
     # Check confounding / rank deficiency
-    # ------------------------------------------------------------
     X = design.to_numpy(dtype=float)
 
     rank = np.linalg.matrix_rank(X)
@@ -412,13 +358,11 @@ def DMA_adjusted(betas, samplesheet,
     if rank < X.shape[1]:
         raise ValueError(
             "Design matrix is not full rank. This usually means your group is "
-            "confounded with one or more covariates, such as Gender or Batch. "
+            "confounded with one or more covariates."
             "For example, all cases may be male and all controls female."
         )
 
-    # ------------------------------------------------------------
     # Filter probes with too much missingness
-    # ------------------------------------------------------------
     min_non_na = int(np.ceil(betas.shape[1] * min_non_na_fraction))
     keep_probes = betas.notna().sum(axis=1) >= min_non_na
 
@@ -427,9 +371,7 @@ def DMA_adjusted(betas, samplesheet,
     if betas.shape[0] == 0:
         raise ValueError("No probes left after missing-value filtering.")
 
-    # ------------------------------------------------------------
     # Mean beta and delta beta for interpretation
-    # ------------------------------------------------------------
     group1_samples = samplesheet.index[samplesheet[condition_col] == group1]
     group2_samples = samplesheet.index[samplesheet[condition_col] == group2]
 
@@ -437,28 +379,19 @@ def DMA_adjusted(betas, samplesheet,
     mean2 = betas[group2_samples].mean(axis=1, skipna=True)
     delta_beta = mean1 - mean2
 
-    # ------------------------------------------------------------
     # Use M-values for testing, beta values for reporting
-    # ------------------------------------------------------------
     if use_m_values:
         test_values = beta_to_m_values(betas)
     else:
         test_values = betas.copy()
 
-    # ------------------------------------------------------------
-    # Handle remaining missing values
-    # Fast vectorized regression cannot handle NaNs.
-    # Here we impute each probe's missing values with that probe's mean.
-    # ------------------------------------------------------------
-    test_values = test_values.T  # samples x probes
+
+    test_values = test_values.T  
     test_values = test_values.apply(lambda x: x.fillna(x.mean()), axis=0)
 
-    Y = test_values.to_numpy(dtype=float)  # samples x probes
+    Y = test_values.to_numpy(dtype=float)  
 
-    # ------------------------------------------------------------
     # Vectorized linear regression
-    # beta_hat = (X'X)^-1 X'Y
-    # ------------------------------------------------------------
     XtX_inv = np.linalg.inv(X.T @ X)
     beta_hat = XtX_inv @ X.T @ Y
 
@@ -474,9 +407,7 @@ def DMA_adjusted(betas, samplesheet,
             "You have too many covariates for the number of samples."
         )
 
-    # ------------------------------------------------------------
     # Standard error, t-statistic, p-value for group effect
-    # ------------------------------------------------------------
     group_idx = list(design.columns).index("group_indicator")
 
     residual_variance = np.sum(residuals ** 2, axis=0) / df_resid
@@ -491,9 +422,7 @@ def DMA_adjusted(betas, samplesheet,
 
     pval = 2 * stats.t.sf(np.abs(t_stat), df=df_resid)
 
-    # ------------------------------------------------------------
-    # Results dataframe
-    # ------------------------------------------------------------
+
     results = pd.DataFrame({
         "Probe": betas.index,
         "mean_group1": mean1.values,
@@ -508,21 +437,16 @@ def DMA_adjusted(betas, samplesheet,
 
     results = results.dropna(subset=["p_value"])
 
-    # ------------------------------------------------------------
     # FDR correction
-    # ------------------------------------------------------------
     results["FDR"] = multipletests(
         results["p_value"],
         method="fdr_bh"
     )[1]
 
     results = results.sort_values("FDR")
+    # save
+    results.to_csv(f'{output_dir}/dma_confounding.csv')
+
 
     return results
 
-
-'''
-graphics.plot_top_cpg(betas, output_plot_dir, samplesheet, res, probe=None, group_column="Condition")
-graphics.volcano_plot(res,output_plot_dir, fdr_threshold=0.05, delta_threshold=0.10)
-
-'''
