@@ -26,7 +26,7 @@ def check_output_dir(output_dir):
     # checks if output directory exists or creates one
     if not (os.path.exists(output_dir)):
         os.mkdir(output_dir)
-        print('Creating output directory')
+        print(f'Creating output directory for {output_dir}')
 
     if output_dir.endswith("/"):
         output_dir = output_dir

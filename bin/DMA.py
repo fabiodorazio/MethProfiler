@@ -104,6 +104,7 @@ def load_meth(betas_path, samplesheet_path, sample_on='Off', test_mode='Off', sa
 #samplesheet.to_csv('/Users/fdorazio/Desktop/Projects/Metprofiler/test/samplesheet_processed.csv')
 
 # to delete
+'''
 betas = pd.read_csv('/Users/fdorazio/Desktop/Projects/Metprofiler/test/GSE59685_betas_test_blood.csv', index_col=0)
 samplesheet = pd.read_csv('/Users/fdorazio/Desktop/Projects/Metprofiler/assets/samplesheet_processed.csv')
 gsm_new = pd.read_csv('/Users/fdorazio/Desktop/Projects/Metprofiler/assets/GSE59685_SampleBarcode_Re-analyzedGSMs_NewGSMs.txt', sep = '\t')
@@ -126,6 +127,7 @@ graphics.plot_age_distribution(samplesheet,output_plot_dir, age_column="age", gr
 graphics.plot_group_counts(samplesheet, output_plot_dir, group_column="Condition")
 graphics.plot_sex_distribution(samplesheet, output_plot_dir, sex_column="Sex")
 graphics.plot_pca(betas, samplesheet, output_plot_dir, group_column="Sex")
+'''
 
 def meth_qc(betas, samplesheet):
     print(samplesheet)
@@ -154,20 +156,20 @@ def meth_qc(betas, samplesheet):
     removed_lowvar = (probe_sd <= 0.02).sum()
     betas = betas.loc[probe_sd > 0.02]
     print(f"Removed {removed_lowvar} low-variance probes")
-
+    print(betas.shape)
     ####
     return(betas)
 
 print('#2')
-betas = meth_qc(betas, samplesheet)
-print(betas)
+#betas = meth_qc(betas, samplesheet)
+#print(betas)
 
 def meth_normalise(betas, method="zscore"):
     """
     Methylation normalisation.
     z-score or quantile
     """
-
+    print(f'Normalising using {method}')
     if method == "zscore":
         norm_betas = betas.apply(
             lambda x: (x - x.mean()) / x.std(),
@@ -194,8 +196,8 @@ def meth_normalise(betas, method="zscore"):
     return norm_betas
 
 print('#3')
-norm_betas = meth_normalise(betas)
-print(norm_betas)
+#norm_betas = meth_normalise(betas)
+#print(norm_betas)
 
 
 def DMA(betas, samplesheet, group1, group2):
@@ -287,165 +289,240 @@ def DMA(betas, samplesheet, group1, group2):
     return results
 
 print('#4')
-res = DMA(norm_betas, samplesheet, group1="Control", group2="Disease")
-print(res)
+#res = DMA(norm_betas, samplesheet, group1="Control", group2="Disease")
+#print(res)
 
-def DMA_linear_model(
-    betas,
-    samplesheet,
-    group_column="Condition",
-    group1="Disease",
-    group2="Control",
-    covariates=["age", "Sex"],
-    annotation=None
-    ):
-    # ------------------------------------------------------------
-    # Clean sample IDs
-    # ------------------------------------------------------------
+import numpy as np
+import pandas as pd
+from scipy import stats
+from statsmodels.stats.multitest import multipletests
+
+
+def beta_to_m_values(betas, eps=1e-6):
+    """
+    Convert beta values to M-values for statistical testing.
+    """
+    betas = betas.clip(eps, 1 - eps)
+    return np.log2(betas / (1 - betas))
+
+
+def DMA_adjusted(betas, samplesheet,
+    group1,
+    group2,
+    covariates=None, sample_col="Sample_Barcode", condition_col="Condition",
+    use_m_values=True,
+    min_non_na_fraction=0.8,
+):
+    """
+    Differential methylation analysis adjusted for covariates.
+
+    covariates : list or None
+        Metadata columns to adjust for, e.g. ["Gender", "Age", "Batch"].
+
+    min_non_na_fraction : float
+        Keep probes with at least this fraction of non-missing samples.
+
+    """
+
+    if covariates is None:
+        covariates = []
+
+    betas = betas.copy()
     samplesheet = samplesheet.copy()
 
-    samplesheet["Sample_Barcode"] = (
-        samplesheet["Sample_Barcode"]
+    # clean sample IDs
+    samplesheet[sample_col] = (
+        samplesheet[sample_col]
         .astype(str)
         .str.strip()
     )
 
     betas.columns = betas.columns.astype(str).str.strip()
 
-    # ------------------------------------------------------------
-    # Keep only samples present in betas
-    # ------------------------------------------------------------
-    samplesheet = samplesheet[
-        samplesheet["Sample_Barcode"].isin(betas.columns)
-    ]
-    # ------------------------------------------------------------
-    # Keep only groups of interest
-    # ------------------------------------------------------------
-    samplesheet = samplesheet[
-        samplesheet[group_column].isin([group1, group2])
-    ]
+    # keep only group1 and group2 samples
+    samplesheet = samplesheet.loc[
+        samplesheet[condition_col].isin([group1, group2])
+    ].copy()
 
-    print(samplesheet[group_column].value_counts())
+    # keep samples present in beta table
+    shared_samples = pd.Index(samplesheet[sample_col]).intersection(betas.columns)
 
-    # ------------------------------------------------------------
-    # Encode group variable
-    # ------------------------------------------------------------
-    samplesheet["group_binary"] = (
-        samplesheet[group_column] == group1
+    if len(shared_samples) == 0:
+        raise ValueError("No matching sample IDs between betas and samplesheet.")
+
+    samplesheet = (
+        samplesheet
+        .set_index(sample_col)
+        .loc[shared_samples]
+        .copy()
+    )
+
+    betas = betas.loc[:, shared_samples]
+
+    # Report sample counts
+    n_group1 = (samplesheet[condition_col] == group1).sum()
+    n_group2 = (samplesheet[condition_col] == group2).sum()
+
+    print(f"{group1}: {n_group1} samples")
+    print(f"{group2}: {n_group2} samples")
+
+    if n_group1 < 2 or n_group2 < 2:
+        raise ValueError("Each group needs at least 2 samples.")
+
+    # Check covariates exist
+    missing_covariates = [c for c in covariates if c not in samplesheet.columns]
+
+    if missing_covariates:
+        raise ValueError(f"Missing covariates in samplesheet: {missing_covariates}")
+
+    # Encode condition
+    # group1 = 1, group2 = 0
+    samplesheet["group_indicator"] = (
+        samplesheet[condition_col] == group1
     ).astype(int)
 
-    # ------------------------------------------------------------
-    # Encode sex
-    # ------------------------------------------------------------
-    if "Sex" in covariates:
-        samplesheet["Sex"] = (
-            samplesheet["Sex"]
-            .astype(str)
-            .str.upper()
+    # build  matrix
+    design = samplesheet[["group_indicator"] + covariates].copy()
+    # One-hot encode categorical covariates
+    design = pd.get_dummies(design, drop_first=True)
+    # ddd intercept
+    design.insert(0, "intercept", 1.0)
+    # convert booleans to floats if needed
+    design = design.astype(float)
+
+    # drop samples with missing covariates
+    valid_samples = ~design.isna().any(axis=1)
+
+    if valid_samples.sum() < design.shape[1] + 1:
+        raise ValueError(
+            "Not enough samples after removing samples with missing covariates."
         )
 
-        samplesheet["Sex"] = samplesheet["Sex"].map({
-            "MALE": 1,
-            "FEMALE": 0
-        })
-        # ------------------------------------------------------------
-    # Build design matrix
-    # ------------------------------------------------------------
-    design_cols = ["group_binary"] + covariates
-
-    design = samplesheet[
-        ["Sample_Barcode"] + design_cols
-    ].dropna()
+    design = design.loc[valid_samples]
+    samplesheet = samplesheet.loc[valid_samples]
+    betas = betas.loc[:, design.index]
 
     # ------------------------------------------------------------
-    # Match beta matrix order
+    # Check confounding / rank deficiency
     # ------------------------------------------------------------
-    common_samples = design["Sample_Barcode"]
+    X = design.to_numpy(dtype=float)
 
-    design = design.set_index("Sample_Barcode")
+    rank = np.linalg.matrix_rank(X)
 
-    X = sm.add_constant(design)
-
-    beta_matrix = betas[common_samples]
-
-    print(f"Samples used: {beta_matrix.shape[1]}")
-    print(f"Probes used: {beta_matrix.shape[0]}")
-
-    # ============================================================
-    # Probe-wise regression
-    # ============================================================
-    results = []
-
-    for probe in beta_matrix.index:
-        y = beta_matrix.loc[probe]
-
-        # --------------------------------------------------------
-        # Remove missing values
-        # --------------------------------------------------------
-        valid = y.notna()
-
-        y_valid = y[valid]
-        X_valid = X.loc[valid]
-
-        if len(y_valid) < 5:
-            continue
-
-        try:
-            model = sm.OLS(y_valid, X_valid)
-            fit = model.fit()
-
-            coef = fit.params["group_binary"]
-            se = fit.bse["group_binary"]
-            tval = fit.tvalues["group_binary"]
-            pval = fit.pvalues["group_binary"]
-
-            mean_group1 = np.nanmean(
-                y_valid[
-                    X_valid["group_binary"] == 1
-                ]
-            )
-
-            mean_group2 = np.nanmean(
-                y_valid[
-                    X_valid["group_binary"] == 0
-                ]
-            )
-
-            results.append({
-                "Probe": probe,
-                "mean_group1": mean_group1,
-                "mean_group2": mean_group2,
-                "delta_beta": mean_group1 - mean_group2,
-                "effect_size": coef,
-                "std_error": se,
-                "t_stat": tval,
-                "p_value": pval
-            })
-
-        except Exception:
-            continue
-
-
-        # ============================================================
-    # Build results dataframe
-    # ============================================================
-    results = pd.DataFrame(results)
+    if rank < X.shape[1]:
+        raise ValueError(
+            "Design matrix is not full rank. This usually means your group is "
+            "confounded with one or more covariates, such as Gender or Batch. "
+            "For example, all cases may be male and all controls female."
+        )
 
     # ------------------------------------------------------------
-    # Multiple testing correction
+    # Filter probes with too much missingness
+    # ------------------------------------------------------------
+    min_non_na = int(np.ceil(betas.shape[1] * min_non_na_fraction))
+    keep_probes = betas.notna().sum(axis=1) >= min_non_na
+
+    betas = betas.loc[keep_probes].copy()
+
+    if betas.shape[0] == 0:
+        raise ValueError("No probes left after missing-value filtering.")
+
+    # ------------------------------------------------------------
+    # Mean beta and delta beta for interpretation
+    # ------------------------------------------------------------
+    group1_samples = samplesheet.index[samplesheet[condition_col] == group1]
+    group2_samples = samplesheet.index[samplesheet[condition_col] == group2]
+
+    mean1 = betas[group1_samples].mean(axis=1, skipna=True)
+    mean2 = betas[group2_samples].mean(axis=1, skipna=True)
+    delta_beta = mean1 - mean2
+
+    # ------------------------------------------------------------
+    # Use M-values for testing, beta values for reporting
+    # ------------------------------------------------------------
+    if use_m_values:
+        test_values = beta_to_m_values(betas)
+    else:
+        test_values = betas.copy()
+
+    # ------------------------------------------------------------
+    # Handle remaining missing values
+    # Fast vectorized regression cannot handle NaNs.
+    # Here we impute each probe's missing values with that probe's mean.
+    # ------------------------------------------------------------
+    test_values = test_values.T  # samples x probes
+    test_values = test_values.apply(lambda x: x.fillna(x.mean()), axis=0)
+
+    Y = test_values.to_numpy(dtype=float)  # samples x probes
+
+    # ------------------------------------------------------------
+    # Vectorized linear regression
+    # beta_hat = (X'X)^-1 X'Y
+    # ------------------------------------------------------------
+    XtX_inv = np.linalg.inv(X.T @ X)
+    beta_hat = XtX_inv @ X.T @ Y
+
+    fitted = X @ beta_hat
+    residuals = Y - fitted
+
+    n_samples, n_predictors = X.shape
+    df_resid = n_samples - n_predictors
+
+    if df_resid <= 0:
+        raise ValueError(
+            "Not enough residual degrees of freedom. "
+            "You have too many covariates for the number of samples."
+        )
+
+    # ------------------------------------------------------------
+    # Standard error, t-statistic, p-value for group effect
+    # ------------------------------------------------------------
+    group_idx = list(design.columns).index("group_indicator")
+
+    residual_variance = np.sum(residuals ** 2, axis=0) / df_resid
+
+    se_group = np.sqrt(
+        residual_variance * XtX_inv[group_idx, group_idx]
+    )
+
+    coef_group = beta_hat[group_idx, :]
+
+    t_stat = coef_group / se_group
+
+    pval = 2 * stats.t.sf(np.abs(t_stat), df=df_resid)
+
+    # ------------------------------------------------------------
+    # Results dataframe
+    # ------------------------------------------------------------
+    results = pd.DataFrame({
+        "Probe": betas.index,
+        "mean_group1": mean1.values,
+        "mean_group2": mean2.values,
+        "delta_beta": delta_beta.values,
+        "coef_group": coef_group,
+        "t_stat": t_stat,
+        "p_value": pval,
+        "n_samples": n_samples,
+        "df_resid": df_resid,
+    })
+
+    results = results.dropna(subset=["p_value"])
+
+    # ------------------------------------------------------------
+    # FDR correction
     # ------------------------------------------------------------
     results["FDR"] = multipletests(
         results["p_value"],
         method="fdr_bh"
     )[1]
 
-    # ------------------------------------------------------------
-    # Rank by FDR
-    # ------------------------------------------------------------
     results = results.sort_values("FDR")
 
     return results
 
 
+'''
 graphics.plot_top_cpg(betas, output_plot_dir, samplesheet, res, probe=None, group_column="Condition")
 graphics.volcano_plot(res,output_plot_dir, fdr_threshold=0.05, delta_threshold=0.10)
+
+'''

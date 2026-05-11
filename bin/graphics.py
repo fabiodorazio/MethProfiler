@@ -109,9 +109,7 @@ def plot_pca(betas, samplesheet, output_plot_dir, group_column="Sex"):
         samplesheet["Sample_Barcode"].isin(betas.columns)
     ]["Sample_Barcode"]
 
-    # --------------------------------------------------------
     # Subset beta matrix
-    # --------------------------------------------------------
     X = betas[common_samples].T
 
     # remove probes with missing values
