@@ -80,5 +80,6 @@ if __name__ == "__main__":
     # 4.1) Plotss
     graphics.plot_top_cpg(betas, output_plot_dir, samplesheet, results, probe=None, group_column="Condition")
     graphics.volcano_plot(results, output_plot_dir, fdr_threshold=0.05, delta_threshold=0.10)
+    graphics.plot_all_significant_cpgs(results, output_plot_dir, samplesheet, results, pvalue_threshold=0.05, group_column="Condition")
 
 

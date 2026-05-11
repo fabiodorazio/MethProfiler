@@ -227,3 +227,57 @@ def plot_top_cpg(betas, output_plot_dir, samplesheet, results, probe=None, group
     plt.savefig(f'{output_plot_dir}/Top_cpg.png')
     plt.close
 
+
+def plot_all_significant_cpgs(betas, output_plot_dir, samplesheet, results, 
+                               pvalue_threshold=0.05, group_column="Condition"):
+    """
+    Plot all significant CpGs (p-value < threshold)
+    """
+    # check if probes exist
+    significant = results[results['p_value'] < pvalue_threshold].copy()
+    
+    # strip whitespace from probe names
+    significant['Probe'] = significant['Probe'].astype(str).str.strip()
+    betas.index = betas.index.astype(str).str.strip()
+    
+    # find which probes are missing
+    missing_probes = set(significant['Probe']) - set(betas.index)
+    if missing_probes:
+        print(f"Warning: {len(missing_probes)} probes not found in betas:")
+        print(f"First 5 missing: {list(missing_probes)[:5]}")
+        
+        # keep only probes that exist
+        significant = significant[significant['Probe'].isin(betas.index)]
+        print(f"Keeping {len(significant)} probes that exist in betas")
+    
+    if len(significant) == 0:
+        print("No significant probes found in betas data!")
+        return
+    
+    samplesheet = samplesheet.copy()
+    samplesheet["Sample_Barcode"] = samplesheet["Sample_Barcode"].astype(str).str.strip()
+    betas.columns = betas.columns.astype(str).str.strip()
+    common = [s for s in betas.columns if s in samplesheet["Sample_Barcode"].values]
+    meta = samplesheet.set_index("Sample_Barcode").loc[common]
+    
+    for idx, row in significant.iterrows():
+        probe = row["Probe"]
+        
+        # double-check probe exists before plotting
+        if probe not in betas.index:
+            continue
+            
+        tmp = pd.DataFrame({
+            "beta": betas.loc[probe, common].values,
+            "group": meta[group_column].values
+        }).dropna()
+        
+        plt.figure(figsize=(6, 5))
+        for name, vals in tmp.groupby("group"):
+            plt.scatter([name] * len(vals), vals["beta"], alpha=0.7)
+        
+        plt.ylabel("Beta Value")
+        plt.title(f"{probe} (p={row['p_value']:.2e})")
+        plt.savefig(f'{output_plot_dir}/CpG_{probe}.png')
+        plt.close()
+

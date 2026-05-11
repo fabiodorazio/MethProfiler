@@ -64,24 +64,46 @@ Metprofiler command to run the analysis on blood subset:
 ```bash
 python ./bin/main.py assets/betas.csv assets/samplesheet.csv -o ./results/ --keep 'whole blood'
 ```
+
+1. Exploratory QC
 Age distribution tending towards elderly patients as expected, with a peak at 80 years old
+
 ![alt text](./results/Plot_outputs/Control_age_distr.png)
 
+
 Diseased samples are also as expected concentrated in older patients
+
 ![alt text](./results/Plot_outputs/Disease_age_distr.png)
 
+
 There is significant more patients with the disease compared to controls
+
 ![alt text](./results/Plot_outputs/group_distr.png)
 
-PCA shows that gender is an important confounding
+
+2. Principal Component Analysis
+
+PCA was used to identify sources of methylation variation across samples. When looking at PC1 and PC2, controls cannot be clearly separated from diseased, suggesting that the disease status is not the only source of variation. The separation in two cluster suggests a binary confounding, which was found to be linked to gender. This could be due to the effect of methylation of sex chromosomes. Ideally, CpGs from X and Y chromosomes should be excluded for cleaner results. 
+
 ![alt text](./results/Plot_outputs/PCA_Condition.png)
+
 
 ![alt text](./results/Plot_outputs/PCA_Sex.png)
 
-The differential methylation results are represented as volcano plot highlighting the significant cpgs
+
+3. Differential Methylation Analysis
+
+The differential methylation results are represented as volcano plot highlighting the significant cpgs. The analysis has been run by regressing out the gender.
+Several CpGs differentially methylated are found, however only cpg08782356 remains above threshold when multiple testing is accounted for.
+
 ![alt text](./results/Plot_outputs/volcano.png)
 
+
 The beta 
+
 ![alt text](./results/Plot_outputs/top_cpg.png)
 
-Conclusion: This analysis allows to shortlist significant CpGs that show differential methylation patterns between ALS and control patients after removing confounding variables
+
+4. Conclusion
+
+This analysis allows to shortlist significant CpGs that show differential methylation patterns between ALS and control patients after removing confounding variables

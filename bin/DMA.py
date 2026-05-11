@@ -337,6 +337,8 @@ def DMA_adjusted(betas, samplesheet,
     design.insert(0, "intercept", 1.0)
     # convert booleans to floats if needed
     design = design.astype(float)
+    print('Design matrix')
+    print(design.columns.tolist())
 
     # drop samples with missing covariates
     valid_samples = ~design.isna().any(axis=1)
@@ -444,9 +446,8 @@ def DMA_adjusted(betas, samplesheet,
     )[1]
 
     results = results.sort_values("FDR")
-    # save
-    results.to_csv(f'{output_dir}/dma_confounding.csv')
-
+    # save top 1000 by p-value for space saving
+    results.head(1000).to_csv(f'{output_dir}/dma_confounding.csv')
 
     return results
 
